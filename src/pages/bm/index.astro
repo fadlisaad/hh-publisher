@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import EditorialBoard from '../../components/EditorialBoard.astro';
 import { content, journals, team } from '../../content/store';
 
 const lang = 'bm';
@@ -121,6 +122,9 @@ const t = content[lang];
       </div>
     </div>
   </section>
+
+  <!-- Editorial Board Section -->
+  <EditorialBoard lang={lang} />
 
   <!-- About Us Section -->
   <section id="about" class="py-24 bg-stone-50 border-y border-stone-200">

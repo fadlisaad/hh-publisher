@@ -20,6 +20,14 @@ export interface TeamMember {
   reportsTo?: string;
 }
 
+export interface EditorialMember {
+  name: string;
+  role: string;
+  institution: string;
+  focus: string[];
+  image: string;
+}
+
 export const content = {
   en: {
     nav: {
@@ -59,6 +67,10 @@ export const content = {
       addressLabel: 'Address',
       emailLabel: 'Email',
       phoneLabel: 'Phone',
+    },
+    editorial: {
+      title: 'Editorial Board',
+      subtitle: 'Distinguished scholars guiding our publishing standards',
     },
   },
   bm: {
@@ -100,6 +112,10 @@ export const content = {
       emailLabel: 'E-mel',
       phoneLabel: 'Telefon',
     },
+    editorial: {
+      title: 'Lembaga Editorial',
+      subtitle: 'Sarjana terkemuka yang membimbing piawaian penerbitan kami',
+    },
   },
 };
 
@@ -139,4 +155,35 @@ export const team: TeamMember[] = [
   { name: 'Siti Nurbainun Parjo', role: 'Journal Manager', department: 'Operational Department', reportsTo: 'Nor Hidayah Mustafa' },
   { name: 'Ruzira Suboh', role: 'Assistant Editor', department: 'Operational Department', reportsTo: 'Siti Nurbainun Parjo' },
   { name: 'Haritharan Weloosamy', role: 'IT Executive', department: 'Operational Department', reportsTo: 'Nor Hidayah Mustafa' },
+];
+
+export const editorialBoard: EditorialMember[] = [
+  {
+    name: 'Prof. Dr. Ahmed Al-Farsi',
+    role: 'Editor-in-Chief',
+    institution: 'University of Science & Technology',
+    focus: ['Molecular Microbiology', 'Genetic Engineering'],
+    image: 'https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=300&h=300',
+  },
+  {
+    name: 'Dr. Sarah Chen',
+    role: 'Associate Editor',
+    institution: 'Global Institute of Agriculture',
+    focus: ['Sustainable Farming', 'Agricultural Economics'],
+    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=300&h=300',
+  },
+  {
+    name: 'Prof. Dr. James O’Connell',
+    role: 'Managing Editor',
+    institution: 'Oxford Biomedical Research Centre',
+    focus: ['Drug Discovery', 'Biopharmaceutics'],
+    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=300&h=300',
+  },
+  {
+    name: 'Dr. Maria Rodriguez',
+    role: 'Review Editor',
+    institution: 'National University of Biotechnology',
+    focus: ['Genomics', 'Bioinformatics'],
+    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=300&h=300',
+  },
 ];

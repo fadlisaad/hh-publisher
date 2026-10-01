@@ -13,10 +13,12 @@ export default defineConfig({
   }),
   integrations: [
     react(),
+    /*
     emdash({
       db: playgroundDatabase(),
       storage: local(),
     }),
+    */
   ],
   i18n: {
     defaultLocale: 'en',
