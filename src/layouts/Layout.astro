@@ -1,0 +1,113 @@
+---
+import { content, type Language } from '../content/store';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: Language;
+}
+
+const { title, description, lang = 'en' } = Astro.props;
+const t = content[lang];
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <title>{title} | HH Publisher</title>
+    <meta name="description" content={description} />
+    
+    <!-- Fonts: Cormorant Garamond for Serifs, Plus Jakarta Sans for Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
+
+    <!-- SEO Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body class="flex flex-col min-h-screen">
+    <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <!-- Zone 1: Brand -->
+        <a href="/" class="text-2xl font-serif font-bold tracking-tight text-stone-900">
+          HH Publisher
+        </a>
+
+        <!-- Zone 2: Navigation -->
+        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
+          <a href="#home" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.home}</a>
+          <a href="#about" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.about}</a>
+          <a href="#journals" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.journals}</a>
+          <a href="#policies" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.policies}</a>
+          <a href="#contact" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.contact}</a>
+        </nav>
+
+        <!-- Zone 3: Actions (Language Toggle) -->
+        <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2 p-1 bg-stone-100 rounded-lg">
+            <a 
+              href="/" 
+              class={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${lang === 'en' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-800'}`}
+            >
+              EN
+            </a>
+            <a 
+              href="/bm" 
+              class={`px-3 py-1.5 text-xs font-medium rounded-md transition-all ${lang === 'bm' ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-500 hover:text-stone-800'}`}
+            >
+              BM
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <footer class="bg-stone-900 text-stone-400 py-16">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-stone-800 pb-12 mb-12">
+        <div class="space-y-4">
+          <h3 class="text-white text-xl font-serif">HH Publisher</h3>
+          <p class="text-sm leading-relaxed max-w-xs">
+            {t.hero.description}
+          </p>
+        </div>
+        <div>
+          <h4 class="text-white text-sm font-medium uppercase tracking-widest mb-6">{t.nav.about}</h4>
+          <ul class="space-y-3 text-sm">
+            <li><a href="#about" class="hover:text-white transition-colors">{t.nav.about}</a></li>
+            <li><a href="#journals" class="hover:text-white transition-colors">{t.nav.journals}</a></li>
+            <li><a href="#policies" class="hover:text-white transition-colors">{t.nav.policies}</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-white text-sm font-medium uppercase tracking-widest mb-6">{t.contact.title}</h4>
+          <ul class="space-y-3 text-sm">
+            <li>inquiries@hh-publisher.com</li>
+            <li>+60 12-359 0809</li>
+            <li>Seremban, Negeri Sembilan, Malaysia</li>
+          </ul>
+        </div>
+      </div>
+      <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs tracking-widest uppercase">
+        <p>© {new Date().getFullYear()} HH Publisher. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

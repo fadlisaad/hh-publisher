@@ -1,0 +1,310 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { content, journals, team } from '../../content/store';
+
+const lang = 'bm';
+const t = content[lang];
+---
+
+<Layout title="Laman Utama" description={t.hero.description} lang={lang}>
+  <!-- Hero Section -->
+  <section id="home" class="relative py-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="space-y-8 relative z-10">
+        <span class="text-xs uppercase tracking-[0.3em] text-stone-500 font-medium">Ditubuhkan 2017 · Malaysia</span>
+        <h1 class="text-6xl lg:text-8xl font-serif text-stone-900 leading-[1.1] text-balance">
+          {t.hero.subtitle}
+        </h1>
+        <p class="text-lg text-stone-600 leading-relaxed max-w-xl">
+          {t.hero.description}
+        </p>
+        <div class="pt-4 flex items-center gap-6">
+          <a href="#journals" class="px-8 py-4 bg-stone-900 text-white rounded-full text-sm font-medium hover:bg-stone-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+            {t.hero.cta}
+          </a>
+          <a href="#about" class="text-sm font-semibold text-stone-900 border-b-2 border-stone-200 hover:border-stone-900 transition-all py-1">
+            {t.nav.about}
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative">
+          <img 
+            src="/src/assets/images/hero_academic_publisher_1790832085983.jpg" 
+            alt="Pejabat Editorial HH Publisher" 
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-[280px] hidden xl:block border border-stone-100">
+          <p class="text-stone-900 font-serif italic text-xl leading-snug">
+            "Kerjasama dipercayai untuk kemajuan tamadun moden."
+          </p>
+          <p class="mt-4 text-xs uppercase tracking-widest text-stone-400 font-bold">— HH Publisher</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introduction / Why Choose -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-1">
+          <h2 class="text-4xl font-serif text-stone-900 mb-6">Kenapa Memilih HH Publisher</h2>
+          <p class="text-stone-500 leading-relaxed">
+            Kami bukan sekadar penerbit; kami menghargai makna perkongsian yang dipercayai.
+          </p>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div class="space-y-4">
+            <h3 class="text-xl font-serif text-stone-900">Ulasan Dwi-Buta</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">
+              Sistem ulasan rakan sebaya yang ketat memastikan maklum balas yang saksama dan integriti akademik.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-serif text-stone-900">Akses Terbuka Emas</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">
+              Kebolehan untuk ditemui dengan segera di seluruh dunia tanpa sekatan dinding bayaran.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-serif text-stone-900">Penyelidikan Inklusif</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">
+              Menyokong penyelidik dari pelbagai latar belakang dengan pentas global yang adil dan bebas prejudis.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-serif text-stone-900">Asas Institusi</h3>
+            <p class="text-sm text-stone-600 leading-relaxed">
+              Berpangkalan di Malaysia dengan gabungan yang telus dan pejabat operasi fizikal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journals Section -->
+  <section id="journals" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div class="max-w-2xl">
+          <h2 class="text-5xl font-serif text-stone-900 mb-6">{t.journals.title}</h2>
+          <p class="text-stone-600">
+            Portfolio kami merangkumi bidang baharu daripada mikrob dan biologi molekul hingga ekonomi pertanian.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {journals.map((journal) => (
+          <a href={journal.link} class="group">
+            <div class="aspect-[3/4] rounded-xl overflow-hidden bg-stone-200 mb-6 shadow-sm group-hover:shadow-xl transition-all duration-500">
+              <img 
+                src={journal.image} 
+                alt={journal.title} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+            </div>
+            <div class="space-y-2">
+              <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">
+                {t.journals.categories[journal.status as keyof typeof t.journals.categories]}
+              </span>
+              <h3 class="text-lg font-serif text-stone-900 leading-snug group-hover:text-stone-600 transition-colors">
+                {journal.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- About Us Section -->
+  <section id="about" class="py-24 bg-stone-50 border-y border-stone-200">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+        <div class="space-y-12">
+          <div class="space-y-6">
+            <h2 class="text-5xl font-serif text-stone-900">{t.about.title}</h2>
+            <p class="text-lg text-stone-700 leading-relaxed drop-cap">
+              {t.about.intro}
+            </p>
+            <p class="text-stone-600 leading-relaxed">
+              {t.about.mission}
+            </p>
+          </div>
+          
+          <div class="p-8 bg-white border border-stone-200 rounded-2xl">
+            <h3 class="text-2xl font-serif text-stone-900 mb-4">Misi Kami</h3>
+            <p class="text-sm text-stone-600 leading-relaxed italic">
+              "Untuk menyediakan platform yang boleh dipercayai bagi penyelidik, ahli akademik, dan profesional untuk berkongsi penyelidikan asli dan idea inovatif."
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-12">
+          <div>
+            <h2 class="text-3xl font-serif text-stone-900 mb-8">{t.about.teamTitle}</h2>
+            <div class="space-y-8">
+              {team.filter(m => !m.reportsTo).map(leader => (
+                <div class="space-y-6">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-stone-900 flex items-center justify-center text-white font-serif text-xl">
+                      {leader.name[0]}
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-stone-900">{leader.name}</h4>
+                      <p class="text-xs text-stone-500 uppercase tracking-widest">{leader.role}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="pl-6 border-l-2 border-stone-100 space-y-6">
+                    {team.filter(m => m.reportsTo === leader.name).map(member => (
+                      <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center text-stone-600 font-serif">
+                            {member.name[0]}
+                          </div>
+                          <div>
+                            <h4 class="font-semibold text-stone-900">{member.name}</h4>
+                            <p class="text-[10px] text-stone-500 uppercase tracking-widest">{member.role}</p>
+                          </div>
+                        </div>
+                        
+                        {team.filter(m => m.reportsTo === member.name).map(sub => (
+                          <div class="pl-6 border-l-2 border-stone-100 flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 font-serif text-sm">
+                              {sub.name[0]}
+                            </div>
+                            <div>
+                              <h4 class="text-sm font-medium text-stone-900">{sub.name}</h4>
+                              <p class="text-[9px] text-stone-400 uppercase tracking-widest">{sub.role}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policies Section -->
+  <section id="policies" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-5xl font-serif text-stone-900">{t.policies.title}</h2>
+        <p class="text-stone-500 max-w-2xl mx-auto">
+          HH Publisher mematuhi prinsip etika penerbitan yang diiktiraf di peringkat antarabangsa (COPE).
+        </p>
+      </div>
+
+      <div class="space-y-12">
+        <div class="prose prose-stone max-w-none">
+          <h3 class="text-2xl font-serif mb-4">1. Pengenalan</h3>
+          <p class="text-stone-600 leading-relaxed">
+            {t.policies.intro}
+          </p>
+          
+          <h3 class="text-2xl font-serif mt-12 mb-4">2. Kebebasan Editorial</h3>
+          <p class="text-stone-600 leading-relaxed">
+            HH Publisher mengiktiraf kepentingan kebebasan editorial dalam mengekalkan integriti dan kredibiliti penerbitan ilmiah. Keputusan editorial hendaklah berasaskan terutamanya pada kualiti saintifik, keaslian, dan perkaitan.
+          </p>
+
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-100 mt-12">
+            <h4 class="text-xl font-serif mb-6">Prinsip Etika Teras</h4>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-stone-600">
+              <li class="flex gap-3">
+                <span class="text-stone-900 font-serif">01.</span>
+                <span>Penyaringan Anti-Plagiat</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-stone-900 font-serif">02.</span>
+                <span>Pendedahan Konflik Kepentingan</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-stone-900 font-serif">03.</span>
+                <span>Protokol Keizinan Termaklum</span>
+              </li>
+              <li class="flex gap-3">
+                <span class="text-stone-900 font-serif">04.</span>
+                <span>Pembetulan Selepas Penerbitan</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 bg-stone-900 text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-8">
+          <h2 class="text-5xl font-serif">{t.contact.title}</h2>
+          <p class="text-stone-400 text-lg">
+            Kami sentiasa terbuka kepada kerjasama dan pertanyaan baharu daripada komuniti ilmiah global.
+          </p>
+          
+          <div class="space-y-6 pt-4">
+            <div class="flex gap-6">
+              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.phoneLabel}</p>
+                <p class="text-xl">+60 12-359 0809</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.emailLabel}</p>
+                <p class="text-xl">inquiries@hh-publisher.com</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.addressLabel}</p>
+                <p class="text-stone-300 leading-relaxed">
+                  G-04 Lake Villa Apartment,<br/>
+                  Jalan Taman Bandar Senawang 4, Taman Bandar Senawang,<br/>
+                  70450 Seremban, Negeri Sembilan, Malaysia
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="bg-stone-800 p-12 rounded-3xl space-y-8">
+          <h3 class="text-3xl font-serif">Pertanyaan Pantas</h3>
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" placeholder="Nama Depan" class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+              <input type="text" placeholder="Nama Belakang" class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+            </div>
+            <input type="email" placeholder="Alamat E-mel" class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+            <textarea placeholder="Mesej Anda" rows="4" class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none"></textarea>
+            <button class="w-full bg-white text-stone-900 py-4 rounded-xl font-bold hover:bg-stone-200 transition-colors">
+              Hantar Mesej
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #FBF9F5;
+  --color-ink: #1C1917;
+}
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    @apply antialiased;
+  }
+
+  h1, h2, h3, h4, .font-serif {
+    font-family: 'Cormorant Garamond', serif;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .hairline {
+    @apply border-stone-200;
+  }
+
+  .drop-cap:first-letter {
+    @apply text-6xl font-serif font-bold float-left mr-3 mt-1 text-stone-900;
+  }
+}

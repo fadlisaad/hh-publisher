@@ -1,0 +1,6 @@
+{
+  "name": "HH Publisher - Scholarly Journal Publishing",
+  "description": "Professional, minimalist journal publishing company based in Malaysia, upholding academic integrity and global visibility.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
