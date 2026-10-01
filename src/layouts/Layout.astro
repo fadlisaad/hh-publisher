@@ -39,17 +39,24 @@ const t = content[lang];
     <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-stone-200">
       <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <!-- Zone 1: Brand -->
-        <a href="/" class="text-2xl font-serif font-bold tracking-tight text-stone-900">
-          HH Publisher
+        <a href="/" class="flex items-center gap-3">
+          <img 
+            src="/src/assets/images/hh_publisher_logo_final_1790844493205.jpg" 
+            alt="HH Publisher" 
+            class="h-10 w-auto rounded"
+          />
+          <span class="text-xl font-serif font-bold tracking-tight text-stone-900 hidden sm:inline">
+            HH <span class="text-primary">Publisher</span>
+          </span>
         </a>
 
         <!-- Zone 2: Navigation -->
         <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
-          <a href="#home" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.home}</a>
-          <a href="#about" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.about}</a>
-          <a href="#journals" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.journals}</a>
-          <a href="#policies" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.policies}</a>
-          <a href="#contact" class="hover:text-stone-900 transition-colors uppercase tracking-wider">{t.nav.contact}</a>
+          <a href="#home" class="hover:text-primary transition-colors uppercase tracking-wider">{t.nav.home}</a>
+          <a href="#about" class="hover:text-primary transition-colors uppercase tracking-wider">{t.nav.about}</a>
+          <a href="#journals" class="hover:text-primary transition-colors uppercase tracking-wider">{t.nav.journals}</a>
+          <a href="#policies" class="hover:text-primary transition-colors uppercase tracking-wider">{t.nav.policies}</a>
+          <a href="#contact" class="hover:text-primary transition-colors uppercase tracking-wider">{t.nav.contact}</a>
         </nav>
 
         <!-- Zone 3: Actions (Language Toggle) -->
@@ -76,20 +83,30 @@ const t = content[lang];
       <slot />
     </main>
 
-    <footer class="bg-stone-900 text-stone-400 py-16">
-      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-stone-800 pb-12 mb-12">
-        <div class="space-y-4">
-          <h3 class="text-white text-xl font-serif">HH Publisher</h3>
+    <footer class="bg-secondary text-stone-400 py-16">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/10 pb-12 mb-12">
+        <div class="space-y-6">
+          <div class="flex items-center gap-3">
+            <img 
+              src="/src/assets/images/hh_publisher_logo_final_1790844493205.jpg" 
+              alt="HH Publisher" 
+              class="h-12 w-auto rounded bg-white p-1"
+            />
+            <h3 class="text-white text-xl font-serif">HH <span class="text-primary">Publisher</span></h3>
+          </div>
           <p class="text-sm leading-relaxed max-w-xs">
             {t.hero.description}
+          </p>
+          <p class="text-[10px] font-bold tracking-widest uppercase text-primary">
+            Building Success & Bridging Partnership
           </p>
         </div>
         <div>
           <h4 class="text-white text-sm font-medium uppercase tracking-widest mb-6">{t.nav.about}</h4>
           <ul class="space-y-3 text-sm">
-            <li><a href="#about" class="hover:text-white transition-colors">{t.nav.about}</a></li>
-            <li><a href="#journals" class="hover:text-white transition-colors">{t.nav.journals}</a></li>
-            <li><a href="#policies" class="hover:text-white transition-colors">{t.nav.policies}</a></li>
+            <li><a href="#about" class="hover:text-primary transition-colors">{t.nav.about}</a></li>
+            <li><a href="#journals" class="hover:text-primary transition-colors">{t.nav.journals}</a></li>
+            <li><a href="#policies" class="hover:text-primary transition-colors">{t.nav.policies}</a></li>
           </ul>
         </div>
         <div>
