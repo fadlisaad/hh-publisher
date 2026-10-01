@@ -4,8 +4,17 @@ import { defineConfig } from 'astro/config';
 import emdash, { local } from 'emdash/astro';
 import { playgroundDatabase } from '@emdash-cms/cloudflare';
 
+import tailwind from '@tailwindcss/vite';
+
 // https://astro.build/config
 export default defineConfig({
+  vite: {
+    plugins: [tailwind()],
+  },
+  server: {
+    port: 3000,
+    host: true,
+  },
   adapter: cloudflare({
     platformProxy: {
       enabled: true,

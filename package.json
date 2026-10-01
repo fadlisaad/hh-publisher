@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "astro dev --port=3000 --host=0.0.0.0",
-    "start": "astro dev --port=3000 --host=0.0.0.0",
+    "dev": "astro dev --port 3000 --host 0.0.0.0 --force",
+    "start": "astro dev --port 3000 --host 0.0.0.0 --force",
     "build": "astro build",
     "preview": "astro preview",
     "clean": "rm -rf dist",
@@ -14,7 +14,6 @@
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
     "@astrojs/react": "^7.0.0",
-    "@astrojs/tailwind": "^6.0.2",
     "@emdash-cms/cloudflare": "^1.0.1",
     "@google/genai": "^2.4.0",
     "@tailwindcss/postcss": "^4.3.3",
