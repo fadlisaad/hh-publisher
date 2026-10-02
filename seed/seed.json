@@ -1,0 +1,529 @@
+{
+  "$schema": "https://emdashcms.com/seed.schema.json",
+  "version": "1",
+  "defaultLocale": "en",
+  "meta": {
+    "name": "HH Publisher",
+    "description": "Editorial content for the HH Publisher website."
+  },
+  "settings": {
+    "title": "HH Publisher",
+    "tagline": "Upholding the Integrity of Knowledge & Research"
+  },
+  "collections": [
+    {
+      "slug": "homepage",
+      "label": "Homepage",
+      "labelSingular": "Homepage",
+      "supports": ["drafts", "revisions"],
+      "titleField": "hero_title",
+      "fields": [
+        { "slug": "hero_eyebrow", "label": "Hero Eyebrow", "type": "string" },
+        { "slug": "hero_title", "label": "Hero Title", "type": "string", "required": true },
+        { "slug": "hero_description", "label": "Hero Description", "type": "text" },
+        { "slug": "hero_cta", "label": "Hero Call to Action", "type": "string" },
+        { "slug": "hero_image", "label": "Hero Image", "type": "image" },
+        { "slug": "hero_quote", "label": "Hero Quote", "type": "text" },
+        { "slug": "why_title", "label": "Why Choose Us Title", "type": "string" },
+        { "slug": "why_intro", "label": "Why Choose Us Introduction", "type": "text" },
+        {
+          "slug": "features",
+          "label": "Features",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              { "slug": "title", "label": "Title", "type": "string", "required": true },
+              { "slug": "description", "label": "Description", "type": "text" }
+            ]
+          }
+        },
+        { "slug": "journals_intro", "label": "Journals Introduction", "type": "text" },
+        { "slug": "about_intro", "label": "About Introduction", "type": "text" },
+        { "slug": "about_mission", "label": "About Mission", "type": "text" },
+        { "slug": "mission_quote", "label": "Mission Quote", "type": "text" },
+        { "slug": "policies_intro", "label": "Policies Introduction", "type": "text" },
+        {
+          "slug": "core_principles",
+          "label": "Core Principles",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              { "slug": "label", "label": "Label", "type": "string", "required": true }
+            ]
+          }
+        },
+        { "slug": "contact_intro", "label": "Contact Introduction", "type": "text" },
+        { "slug": "phone", "label": "Phone", "type": "string" },
+        { "slug": "email", "label": "Email", "type": "string" },
+        { "slug": "address", "label": "Address", "type": "text" },
+        { "slug": "footer_tagline", "label": "Footer Tagline", "type": "string" }
+      ]
+    },
+    {
+      "slug": "journals",
+      "label": "Journals",
+      "labelSingular": "Journal",
+      "supports": ["drafts", "revisions"],
+      "routable": false,
+      "titleField": "title",
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string", "required": true },
+        {
+          "slug": "indexing_status",
+          "label": "Indexing Status",
+          "type": "select",
+          "required": true,
+          "validation": { "options": ["scopus", "myjournal", "non-indexed"] }
+        },
+        { "slug": "cover", "label": "Cover", "type": "image" },
+        { "slug": "link", "label": "Link", "type": "url" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer", "indexed": true }
+      ]
+    },
+    {
+      "slug": "editorial_board",
+      "label": "Editorial Board",
+      "labelSingular": "Editorial Board Member",
+      "supports": ["drafts", "revisions"],
+      "routable": false,
+      "titleField": "name",
+      "fields": [
+        { "slug": "name", "label": "Name", "type": "string", "required": true },
+        { "slug": "role", "label": "Role", "type": "string" },
+        { "slug": "institution", "label": "Institution", "type": "string" },
+        {
+          "slug": "focus",
+          "label": "Research Focus",
+          "type": "repeater",
+          "validation": {
+            "subFields": [
+              { "slug": "area", "label": "Area", "type": "string", "required": true }
+            ]
+          }
+        },
+        { "slug": "photo", "label": "Photo", "type": "image" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer", "indexed": true }
+      ]
+    },
+    {
+      "slug": "team",
+      "label": "Team",
+      "labelSingular": "Team Member",
+      "supports": ["drafts", "revisions"],
+      "routable": false,
+      "titleField": "name",
+      "fields": [
+        { "slug": "name", "label": "Name", "type": "string", "required": true },
+        { "slug": "role", "label": "Role", "type": "string" },
+        { "slug": "department", "label": "Department", "type": "string" },
+        { "slug": "reports_to", "label": "Reports To", "type": "string" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer", "indexed": true }
+      ]
+    },
+    {
+      "slug": "policies",
+      "label": "Policies",
+      "labelSingular": "Policy",
+      "supports": ["drafts", "revisions"],
+      "routable": false,
+      "titleField": "title",
+      "fields": [
+        { "slug": "title", "label": "Title", "type": "string", "required": true },
+        { "slug": "body", "label": "Body", "type": "portableText" },
+        { "slug": "sort_order", "label": "Sort Order", "type": "integer", "indexed": true }
+      ]
+    }
+  ],
+  "content": {
+    "homepage": [
+      {
+        "id": "home-en",
+        "slug": "home",
+        "status": "published",
+        "locale": "en",
+        "data": {
+          "hero_eyebrow": "Est. 2017 · Malaysia",
+          "hero_title": "Upholding the Integrity of Knowledge & Research",
+          "hero_description": "An international journal publishing company established in 2017. We invite all scholars from any background all over the world to collaborate with us without prejudice.",
+          "hero_cta": "Explore Journals",
+          "hero_image": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/hero_academic_publisher_1790832085983.jpg",
+              "filename": "hero-academic-publisher.jpg",
+              "alt": "HH Publisher Editorial Office"
+            }
+          },
+          "hero_quote": "Trusted partnership for the advancement of modern civilization.",
+          "why_title": "Why Choose HH Publisher",
+          "why_intro": "We are not merely a publisher; we value the meaning of trusted partnership.",
+          "features": [
+            { "title": "Double-Blind Review", "description": "Rigorous peer review systems ensure completely unbiased feedback and academic integrity." },
+            { "title": "Gold Open Access", "description": "Immediate discoverability worldwide without paywall restrictions, ensuring global visibility." },
+            { "title": "Inclusive Research", "description": "Supporting researchers from diverse backgrounds with a fair, prejudice-free global stage." },
+            { "title": "Institutional Grounding", "description": "Based in Malaysia with transparent affiliation and physical operational offices." }
+          ],
+          "journals_intro": "Our portfolio covers emerging fields from microbes and molecular biology to agricultural economics.",
+          "about_intro": "HH Publisher is a brand of HH Academic; registered under the Companies Commission of Malaysia in 2017. HH Publisher is committed to supporting the advancement and dissemination of high-quality scholarly research across a broad range of academic disciplines.",
+          "about_mission": "Our mission is to provide a reliable platform for researchers, academics, and professionals to share original research, innovative ideas, and knowledge that contribute to scientific and societal development.",
+          "mission_quote": "To provide a reliable platform for researchers, academics, and professionals to share original research and innovative ideas.",
+          "policies_intro": "HH Publisher follows internationally recognised principles of publication ethics (COPE).",
+          "core_principles": [
+            { "label": "Anti-Plagiarism Screening" },
+            { "label": "Conflict of Interest Disclosure" },
+            { "label": "Informed Consent Protocols" },
+            { "label": "Post-Publication Corrections" }
+          ],
+          "contact_intro": "We are always open to new collaborations and inquiries from the global scholarly community.",
+          "phone": "+60 12-359 0809",
+          "email": "inquiries@hh-publisher.com",
+          "address": "G-04 Lake Villa Apartment,\nJalan Taman Bandar Senawang 4, Taman Bandar Senawang,\n70450 Seremban, Negeri Sembilan, Malaysia",
+          "footer_tagline": "Building Success & Bridging Partnership"
+        }
+      },
+      {
+        "id": "home-bm",
+        "slug": "home",
+        "status": "published",
+        "locale": "bm",
+        "translationOf": "home-en",
+        "data": {
+          "hero_eyebrow": "Ditubuhkan 2017 · Malaysia",
+          "hero_title": "Memartabatkan Integriti Ilmu & Penyelidikan",
+          "hero_description": "Syarikat penerbitan jurnal antarabangsa yang ditubuhkan pada 2017. Kami menjemput semua sarjana dari pelbagai latar belakang di seluruh dunia untuk bekerjasama dengan kami tanpa prejudis.",
+          "hero_cta": "Teroka Jurnal",
+          "hero_image": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/hero_academic_publisher_1790832085983.jpg",
+              "filename": "hero-academic-publisher.jpg",
+              "alt": "Pejabat Editorial HH Publisher"
+            }
+          },
+          "hero_quote": "Kerjasama dipercayai untuk kemajuan tamadun moden.",
+          "why_title": "Kenapa Memilih HH Publisher",
+          "why_intro": "Kami bukan sekadar penerbit; kami menghargai makna perkongsian yang dipercayai.",
+          "features": [
+            { "title": "Ulasan Dwi-Buta", "description": "Sistem ulasan rakan sebaya yang ketat memastikan maklum balas yang saksama dan integriti akademik." },
+            { "title": "Akses Terbuka Emas", "description": "Kebolehan untuk ditemui dengan segera di seluruh dunia tanpa sekatan dinding bayaran." },
+            { "title": "Penyelidikan Inklusif", "description": "Menyokong penyelidik dari pelbagai latar belakang dengan pentas global yang adil dan bebas prejudis." },
+            { "title": "Asas Institusi", "description": "Berpangkalan di Malaysia dengan gabungan yang telus dan pejabat operasi fizikal." }
+          ],
+          "journals_intro": "Portfolio kami merangkumi bidang baharu daripada mikrob dan biologi molekul hingga ekonomi pertanian.",
+          "about_intro": "HH Publisher adalah jenama di bawah HH Academic; berdaftar di bawah Suruhanjaya Syarikat Malaysia pada 2017. HH Publisher komited untuk menyokong kemajuan dan penyebaran penyelidikan ilmiah berkualiti tinggi merentasi pelbagai disiplin akademik.",
+          "about_mission": "Misi kami adalah untuk menyediakan platform yang boleh dipercayai bagi penyelidik, ahli akademik, dan profesional untuk berkongsi penyelidikan asli, idea inovatif, dan pengetahuan yang menyumbang kepada pembangunan saintifik dan masyarakat.",
+          "mission_quote": "Untuk menyediakan platform yang boleh dipercayai bagi penyelidik, ahli akademik, dan profesional untuk berkongsi penyelidikan asli dan idea inovatif.",
+          "policies_intro": "HH Publisher mematuhi prinsip etika penerbitan yang diiktiraf di peringkat antarabangsa (COPE).",
+          "core_principles": [
+            { "label": "Penyaringan Anti-Plagiat" },
+            { "label": "Pendedahan Konflik Kepentingan" },
+            { "label": "Protokol Keizinan Termaklum" },
+            { "label": "Pembetulan Selepas Penerbitan" }
+          ],
+          "contact_intro": "Kami sentiasa terbuka kepada kerjasama dan pertanyaan baharu daripada komuniti ilmiah global.",
+          "phone": "+60 12-359 0809",
+          "email": "inquiries@hh-publisher.com",
+          "address": "G-04 Lake Villa Apartment,\nJalan Taman Bandar Senawang 4, Taman Bandar Senawang,\n70450 Seremban, Negeri Sembilan, Malaysia",
+          "footer_tagline": "Building Success & Bridging Partnership"
+        }
+      }
+    ],
+    "journals": [
+      {
+        "id": "journal-pmmb",
+        "status": "published",
+        "data": {
+          "title": "Progress in Microbes & Molecular Biology",
+          "indexing_status": "scopus",
+          "cover": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/journal_microbes_biology_1790832100281.jpg",
+              "filename": "journal-microbes-biology.jpg",
+              "alt": "Progress in Microbes & Molecular Biology journal cover"
+            }
+          },
+          "link": "#",
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "journal-mjae",
+        "status": "published",
+        "data": {
+          "title": "Malaysian Journal of Agricultural Economics",
+          "indexing_status": "scopus",
+          "cover": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/journal_agricultural_economics_1790832116491.jpg",
+              "filename": "journal-agricultural-economics.jpg",
+              "alt": "Malaysian Journal of Agricultural Economics journal cover"
+            }
+          },
+          "link": "#",
+          "sort_order": 2
+        }
+      },
+      {
+        "id": "journal-pddbs",
+        "status": "published",
+        "data": {
+          "title": "Progress in Drug Discovery & Biomedical Science",
+          "indexing_status": "myjournal",
+          "cover": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/journal_drug_discovery_1790832125088.jpg",
+              "filename": "journal-drug-discovery.jpg",
+              "alt": "Progress in Drug Discovery & Biomedical Science journal cover"
+            }
+          },
+          "link": "#",
+          "sort_order": 3
+        }
+      },
+      {
+        "id": "journal-jwer",
+        "status": "published",
+        "data": {
+          "title": "Journal of Workforce Education & Research",
+          "indexing_status": "non-indexed",
+          "cover": {
+            "$media": {
+              "url": "https://raw.githubusercontent.com/fadlisaad/hh-publisher/03a0768cd0fb95c438319f08da687dd8218da665/src/assets/images/journal_workforce_education_1790832141266.jpg",
+              "filename": "journal-workforce-education.jpg",
+              "alt": "Journal of Workforce Education & Research journal cover"
+            }
+          },
+          "link": "#",
+          "sort_order": 4
+        }
+      }
+    ],
+    "editorial_board": [
+      {
+        "id": "editor-ahmed",
+        "status": "published",
+        "data": {
+          "name": "Prof. Dr. Ahmed Al-Farsi",
+          "role": "Editor-in-Chief",
+          "institution": "University of Science & Technology",
+          "focus": [
+            { "area": "Molecular Microbiology" },
+            { "area": "Genetic Engineering" }
+          ],
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "editor-sarah",
+        "status": "published",
+        "data": {
+          "name": "Dr. Sarah Chen",
+          "role": "Associate Editor",
+          "institution": "Global Institute of Agriculture",
+          "focus": [
+            { "area": "Sustainable Farming" },
+            { "area": "Agricultural Economics" }
+          ],
+          "photo": {
+            "$media": {
+              "url": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=300&h=300",
+              "filename": "sarah-chen.jpg",
+              "alt": "Dr. Sarah Chen"
+            }
+          },
+          "sort_order": 2
+        }
+      },
+      {
+        "id": "editor-james",
+        "status": "published",
+        "data": {
+          "name": "Prof. Dr. James O’Connell",
+          "role": "Managing Editor",
+          "institution": "Oxford Biomedical Research Centre",
+          "focus": [
+            { "area": "Drug Discovery" },
+            { "area": "Biopharmaceutics" }
+          ],
+          "photo": {
+            "$media": {
+              "url": "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=300&h=300",
+              "filename": "james-oconnell.jpg",
+              "alt": "Prof. Dr. James O’Connell"
+            }
+          },
+          "sort_order": 3
+        }
+      },
+      {
+        "id": "editor-maria",
+        "status": "published",
+        "data": {
+          "name": "Dr. Maria Rodriguez",
+          "role": "Review Editor",
+          "institution": "National University of Biotechnology",
+          "focus": [
+            { "area": "Genomics" },
+            { "area": "Bioinformatics" }
+          ],
+          "photo": {
+            "$media": {
+              "url": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=300&h=300",
+              "filename": "maria-rodriguez.jpg",
+              "alt": "Dr. Maria Rodriguez"
+            }
+          },
+          "sort_order": 4
+        }
+      }
+    ],
+    "team": [
+      {
+        "id": "team-nor-hidayah",
+        "status": "published",
+        "data": {
+          "name": "Nor Hidayah Mustafa",
+          "role": "Manager",
+          "department": "",
+          "reports_to": "",
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "team-siti-nurbainun",
+        "status": "published",
+        "data": {
+          "name": "Siti Nurbainun Parjo",
+          "role": "Journal Manager",
+          "department": "Operational Department",
+          "reports_to": "Nor Hidayah Mustafa",
+          "sort_order": 2
+        }
+      },
+      {
+        "id": "team-ruzira-suboh",
+        "status": "published",
+        "data": {
+          "name": "Ruzira Suboh",
+          "role": "Assistant Editor",
+          "department": "Operational Department",
+          "reports_to": "Siti Nurbainun Parjo",
+          "sort_order": 3
+        }
+      },
+      {
+        "id": "team-haritharan-weloosamy",
+        "status": "published",
+        "data": {
+          "name": "Haritharan Weloosamy",
+          "role": "IT Executive",
+          "department": "Operational Department",
+          "reports_to": "Nor Hidayah Mustafa",
+          "sort_order": 4
+        }
+      }
+    ],
+    "policies": [
+      {
+        "id": "policy-introduction-en",
+        "status": "published",
+        "locale": "en",
+        "data": {
+          "title": "1. Introduction",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "policy-introduction-en",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "policy-introduction-en-span",
+                  "text": "HH Publisher is committed to advancing scholarly communication by providing a trusted, ethical, transparent, and accessible platform for the dissemination of high-quality academic and scientific research.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "policy-editorial-independence-en",
+        "status": "published",
+        "locale": "en",
+        "data": {
+          "title": "2. Editorial Independence",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "policy-editorial-independence-en",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "policy-editorial-independence-en-span",
+                  "text": "HH Publisher recognises the importance of editorial independence in maintaining the integrity and credibility of scholarly publishing. Editorial decisions shall be based primarily on scientific quality, originality, and relevance.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 2
+        }
+      },
+      {
+        "id": "policy-introduction-bm",
+        "status": "published",
+        "locale": "bm",
+        "translationOf": "policy-introduction-en",
+        "data": {
+          "title": "1. Pengenalan",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "policy-introduction-bm",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "policy-introduction-bm-span",
+                  "text": "HH Publisher komited untuk memajukan komunikasi ilmiah dengan menyediakan platform yang dipercayai, beretika, telus, dan mudah diakses untuk penyebaran penyelidikan akademik dan saintifik berkualiti tinggi.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 1
+        }
+      },
+      {
+        "id": "policy-editorial-independence-bm",
+        "status": "published",
+        "locale": "bm",
+        "translationOf": "policy-editorial-independence-en",
+        "data": {
+          "title": "2. Kebebasan Editorial",
+          "body": [
+            {
+              "_type": "block",
+              "_key": "policy-editorial-independence-bm",
+              "style": "normal",
+              "markDefs": [],
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "policy-editorial-independence-bm-span",
+                  "text": "HH Publisher mengiktiraf kepentingan kebebasan editorial dalam mengekalkan integriti dan kredibiliti penerbitan ilmiah. Keputusan editorial hendaklah berasaskan terutamanya pada kualiti saintifik, keaslian, dan perkaitan.",
+                  "marks": []
+                }
+              ]
+            }
+          ],
+          "sort_order": 2
+        }
+      }
+    ]
+  }
+}

@@ -4,6 +4,10 @@ dist/
 coverage/
 .astro/
 .wrangler/
+.emdash/
+uploads/
+data.db*
+emdash-env.d.ts
 bun.lock
 .DS_Store
 *.log
