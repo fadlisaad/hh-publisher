@@ -1,0 +1,368 @@
+---
+import Layout from '../layouts/Layout.astro';
+import EditorialBoard from '../components/EditorialBoard.astro';
+import { Image, PortableText } from 'emdash/ui';
+import { getEmDashEntry } from 'emdash';
+import type { ImageValue, PortableTextBlock } from 'emdash';
+import { getLocalizedCollection } from '../lib/content';
+import { content, type Journal, type Language, type TeamMember } from '../content/store';
+
+interface Props {
+  lang: Language;
+}
+
+interface HomepageContent {
+  hero_eyebrow?: string;
+  hero_title: string;
+  hero_description?: string;
+  hero_cta?: string;
+  hero_image?: ImageValue;
+  hero_quote?: string;
+  why_title?: string;
+  why_intro?: string;
+  features?: { title: string; description?: string }[];
+  journals_intro?: string;
+  about_intro?: string;
+  about_mission?: string;
+  mission_quote?: string;
+  policies_intro?: string;
+  core_principles?: { label: string }[];
+  contact_intro?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  footer_tagline?: string;
+}
+
+interface Policy {
+  title: string;
+  body: PortableTextBlock[];
+  sort_order: number;
+}
+
+const { lang } = Astro.props;
+const t = content[lang];
+const homepageResult = await getEmDashEntry('homepage', 'home', { locale: lang });
+if (homepageResult.error) {
+  Astro.response.status = 500;
+  throw homepageResult.error;
+}
+if (!homepageResult.entry) {
+  Astro.response.status = 404;
+  throw new Error('Homepage content was not found');
+}
+if (Astro.cache?.enabled) Astro.cache.set(homepageResult.cacheHint);
+
+const homepage = homepageResult.entry.data as HomepageContent;
+const home = {
+  ...homepage,
+  hero_eyebrow: homepage.hero_eyebrow ?? '',
+  hero_description: homepage.hero_description ?? '',
+  hero_cta: homepage.hero_cta ?? '',
+  hero_quote: homepage.hero_quote ?? '',
+  why_title: homepage.why_title ?? '',
+  why_intro: homepage.why_intro ?? '',
+  features: homepage.features ?? [],
+  journals_intro: homepage.journals_intro ?? '',
+  about_intro: homepage.about_intro ?? '',
+  about_mission: homepage.about_mission ?? '',
+  mission_quote: homepage.mission_quote ?? '',
+  policies_intro: homepage.policies_intro ?? '',
+  core_principles: homepage.core_principles ?? [],
+  contact_intro: homepage.contact_intro ?? '',
+  phone: homepage.phone ?? '',
+  email: homepage.email ?? '',
+  address: homepage.address ?? '',
+  footer_tagline: homepage.footer_tagline ?? '',
+};
+const [journalResult, teamResult, policyResult] = await Promise.all([
+  getLocalizedCollection('journals', lang),
+  getLocalizedCollection('team', lang),
+  getLocalizedCollection('policies', lang),
+]);
+
+for (const result of [journalResult, teamResult, policyResult]) {
+  if (result.error) {
+    Astro.response.status = 500;
+    throw result.error;
+  }
+  if (Astro.cache?.enabled) Astro.cache.set(result.cacheHint);
+}
+
+const journals = journalResult.entries as Array<{ data: Journal }>;
+const team = teamResult.entries as Array<{ data: TeamMember }>;
+const policies = policyResult.entries as Array<{ data: Policy }>;
+const whyTitleSuffix = ' HH Publisher';
+const hasWhyTitleBrand =
+  home.why_title.length > 0 && home.why_title.endsWith(whyTitleSuffix);
+const whyTitleLead = hasWhyTitleBrand
+  ? home.why_title.slice(0, -whyTitleSuffix.length)
+  : home.why_title;
+---
+
+<Layout title={t.nav.home} description={home.hero_description} lang={lang} homepage={home}>
+  <!-- Hero Section -->
+  <section id="home" class="relative py-24 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <div class="space-y-8 relative z-10">
+        <span class="text-xs uppercase tracking-[0.3em] text-stone-500 font-medium">{home.hero_eyebrow}</span>
+        <h1 class="text-6xl lg:text-8xl font-serif text-stone-900 leading-[1.1] text-balance">
+          {home.hero_title}
+        </h1>
+        <p class="text-lg text-stone-600 leading-relaxed max-w-xl">
+          {home.hero_description}
+        </p>
+        <div class="pt-4 flex items-center gap-6">
+          <a href="#journals" class="px-8 py-4 bg-primary text-black rounded-full text-sm font-bold hover:bg-primary/90 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5 uppercase tracking-wider">
+            {home.hero_cta}
+          </a>
+          <a href="#about" class="text-sm font-semibold text-stone-900 border-b-2 border-primary/20 hover:border-primary transition-all py-1">
+            {t.nav.about}
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl relative">
+          <Image image={home.hero_image} class="w-full h-full object-cover" priority />
+          <div class="absolute inset-0 bg-gradient-to-t from-stone-900/40 to-transparent"></div>
+        </div>
+        <div class="absolute -bottom-10 -left-10 bg-white p-8 rounded-2xl shadow-xl max-w-[280px] hidden xl:block border border-stone-100">
+          <p class="text-stone-900 font-serif italic text-xl leading-snug">
+            “{home.hero_quote}”
+          </p>
+          <p class="mt-4 text-xs uppercase tracking-widest text-stone-400 font-bold">— HH Publisher</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Introduction / Why Choose -->
+  <section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+        <div class="lg:col-span-1">
+          <h2 class="text-4xl font-serif text-stone-900 mb-6">{whyTitleLead}{hasWhyTitleBrand && <span class="text-primary"> HH Publisher</span>}</h2>
+          <p class="text-stone-500 leading-relaxed">
+            {home.why_intro}
+          </p>
+        </div>
+        <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-12">
+          {home.features.map((feature) => (
+            <div class="space-y-4">
+              <h3 class="text-xl font-serif text-stone-900">{feature.title}</h3>
+              <p class="text-sm text-stone-600 leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Journals Section -->
+  <section id="journals" class="py-24">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+        <div class="max-w-2xl">
+          <h2 class="text-5xl font-serif text-stone-900 mb-6">{t.journals.title}</h2>
+          <p class="text-stone-600">
+            {home.journals_intro}
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {journals.map(({ data: journal }) => (
+          <a href={journal.link} class="group">
+            <div class="aspect-[3/4] rounded-xl overflow-hidden bg-stone-200 mb-6 shadow-sm group-hover:shadow-xl transition-all duration-500">
+              <Image image={journal.cover as ImageValue | undefined} alt={journal.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+            </div>
+            <div class="space-y-2">
+              <span class="text-[10px] uppercase tracking-widest text-stone-400 font-bold">
+                {t.journals.categories[journal.indexing_status]}
+              </span>
+              <h3 class="text-lg font-serif text-stone-900 leading-snug group-hover:text-stone-600 transition-colors">
+                {journal.title}
+              </h3>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Editorial Board Section -->
+  <EditorialBoard lang={lang} />
+
+  <!-- About Us Section -->
+  <section id="about" class="py-24 bg-stone-50 border-y border-stone-200">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+        <div class="space-y-12">
+          <div class="space-y-6">
+            <h2 class="text-5xl font-serif text-stone-900">{t.about.title}</h2>
+            <p class="text-lg text-stone-700 leading-relaxed drop-cap">
+              {home.about_intro}
+            </p>
+            <p class="text-stone-600 leading-relaxed">
+              {home.about_mission}
+            </p>
+          </div>
+          
+          <div class="p-8 bg-white border border-stone-200 rounded-2xl">
+            <h3 class="text-2xl font-serif text-stone-900 mb-4">{t.about.missionTitle}</h3>
+            <p class="text-sm text-stone-600 leading-relaxed italic">
+              “{home.mission_quote}”
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-12">
+          <div>
+            <h2 class="text-3xl font-serif text-stone-900 mb-8">{t.about.teamTitle}</h2>
+            <div class="space-y-8">
+              {team.filter(({ data }) => !data.reports_to).map(({ data: leader }) => (
+                <div class="space-y-6">
+                  <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-black font-serif text-xl font-bold">
+                      {leader.name[0]}
+                    </div>
+                    <div>
+                      <h4 class="font-bold text-stone-900">{leader.name}</h4>
+                      <p class="text-xs text-stone-500 uppercase tracking-widest">{leader.role}</p>
+                    </div>
+                  </div>
+                  
+                  <div class="pl-6 border-l-2 border-stone-100 space-y-6">
+                    {team.filter(({ data }) => data.reports_to === leader.name).map(({ data: member }) => (
+                      <div class="space-y-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center text-stone-600 font-serif">
+                            {member.name[0]}
+                          </div>
+                          <div>
+                            <h4 class="font-semibold text-stone-900">{member.name}</h4>
+                            <p class="text-[10px] text-stone-500 uppercase tracking-widest">{member.role}</p>
+                          </div>
+                        </div>
+                        
+                        {team.filter(({ data }) => data.reports_to === member.name).map(({ data: sub }) => (
+                          <div class="pl-6 border-l-2 border-stone-100 flex items-center gap-4">
+                            <div class="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center text-stone-400 font-serif text-sm">
+                              {sub.name[0]}
+                            </div>
+                            <div>
+                              <h4 class="text-sm font-medium text-stone-900">{sub.name}</h4>
+                              <p class="text-[9px] text-stone-400 uppercase tracking-widest">{sub.role}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Policies Section -->
+  <section id="policies" class="py-24 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16 space-y-4">
+        <h2 class="text-5xl font-serif text-stone-900">{t.policies.title}</h2>
+        <p class="text-stone-500 max-w-2xl mx-auto">
+          {home.policies_intro}
+        </p>
+      </div>
+
+      <div class="space-y-12">
+        <div class="prose prose-stone max-w-none">
+          {policies.map(({ data: policy }) => (
+            <div>
+              <h3 class={policy.sort_order === 1 ? "text-2xl font-serif mb-4" : "text-2xl font-serif mt-12 mb-4"}>{policy.title}</h3>
+              <div class="text-stone-600 leading-relaxed">
+                <PortableText value={policy.body} />
+              </div>
+            </div>
+          ))}
+
+          <div class="bg-stone-50 p-8 rounded-xl border border-stone-100 mt-12">
+            <h4 class="text-xl font-serif mb-6">{t.policies.corePrinciples}</h4>
+            <ul class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-stone-600">
+              {home.core_principles.map(({ label }, index) => (
+                <li class="flex gap-3">
+                  <span class="text-primary font-serif font-bold">{String(index + 1).padStart(2, '0')}.</span>
+                  <span>{label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-24 bg-secondary text-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div class="space-y-8">
+          <h2 class="text-5xl font-serif">{t.contact.title}</h2>
+          <p class="text-stone-400 text-lg">
+            {home.contact_intro}
+          </p>
+          
+          <div class="space-y-6 pt-4">
+            <div class="flex gap-6">
+              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.phoneLabel}</p>
+                <p class="text-xl">{home.phone}</p>
+              </div>
+            </div>
+            <div class="flex gap-6">
+              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+              </div>
+              <div>
+                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.emailLabel}</p>
+                <p class="text-xl">{home.email}</p>
+              </div>
+            </div>
+            {home.address && (
+              <div class="flex gap-6">
+                <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.addressLabel}</p>
+                  <p class="text-stone-300 leading-relaxed">{home.address.split('\n').map((line, index) => <span>{index > 0 && <br />}{line}</span>)}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        
+        <div class="bg-stone-800 p-12 rounded-3xl space-y-8">
+          <h3 class="text-3xl font-serif">{t.contact.formTitle}</h3>
+          <form class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <input type="text" placeholder={t.contact.firstName} class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+              <input type="text" placeholder={t.contact.lastName} class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+            </div>
+            <input type="email" placeholder={t.contact.emailPlaceholder} class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none" />
+            <textarea placeholder={t.contact.message} rows="4" class="w-full bg-stone-700 border-none rounded-xl px-6 py-4 focus:ring-2 focus:ring-stone-500 outline-none"></textarea>
+            <button class="w-full bg-primary text-black py-4 rounded-xl font-bold hover:bg-primary/90 transition-colors uppercase tracking-widest text-xs">
+              {t.contact.submit}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

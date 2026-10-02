@@ -1,0 +1,50 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "hh-publisher",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-02-24",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "hh-publisher",
+      "database_id": "d3c375ad-505b-4381-9894-eeff2ec0d052",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "748b7abfe82d492b9844a0544e8ef582",
+    },
+  ],
+  "r2_buckets": [
+    {
+      "binding": "MEDIA",
+      "bucket_name": "hh-publisher-media",
+    },
+  ],
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "hh-publisher-preview",
+        "database_id": "4af18851-5e92-4db8-a9f0-e97abc1007a1",
+      },
+    ],
+    "r2_buckets": [
+      {
+        "binding": "MEDIA",
+        "bucket_name": "hh-publisher-media-preview",
+      },
+    ],
+    "kv_namespaces": [
+      {
+        "binding": "SESSION",
+        "id": "f7fd7a065fdb42f1aa6753043a5f75f3",
+      },
+    ],
+  },
+  "triggers": {
+    "crons": ["* * * * *"],
+  },
+}

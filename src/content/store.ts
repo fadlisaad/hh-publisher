@@ -6,26 +6,28 @@
 export type Language = 'en' | 'bm';
 
 export interface Journal {
-  id: string;
   title: string;
-  status: 'scopus' | 'myjournal' | 'non-indexed';
-  image: string;
+  indexing_status: 'scopus' | 'myjournal' | 'non-indexed';
+  cover?: unknown;
   link: string;
+  sort_order: number;
 }
 
 export interface TeamMember {
   name: string;
   role: string;
   department?: string;
-  reportsTo?: string;
+  reports_to?: string;
+  sort_order: number;
 }
 
 export interface EditorialMember {
   name: string;
-  role: string;
-  institution: string;
-  focus: string[];
-  image: string;
+  role?: string;
+  institution?: string;
+  focus?: { area: string }[];
+  photo?: unknown;
+  sort_order?: number;
 }
 
 export const content = {
@@ -37,36 +39,34 @@ export const content = {
       policies: 'Policies',
       contact: 'Contact Us',
     },
-    hero: {
-      title: 'HH Publisher',
-      subtitle: 'Upholding the Integrity of Knowledge & Research',
-      description: 'An international journal publishing company established in 2017. We invite all scholars from any background all over the world to collaborate with us without prejudice.',
-      cta: 'Explore Journals',
-    },
     about: {
       title: 'About Us',
-      intro: 'HH Publisher is a brand of HH Academic; registered under the Companies Commission of Malaysia in 2017. HH Publisher is committed to supporting the advancement and dissemination of high-quality scholarly research across a broad range of academic disciplines.',
-      mission: 'Our mission is to provide a reliable platform for researchers, academics, and professionals to share original research, innovative ideas, and knowledge that contribute to scientific and societal development.',
       teamTitle: 'Our Team',
-      teamDesc: 'All selected members of HH Publisher have extensive experience in scientific publishing, with many years of experience in the field.',
+      missionTitle: 'Our Mission',
     },
     journals: {
       title: 'Our Journals',
       categories: {
         scopus: 'Scopus Indexed',
         myjournal: 'MyJournal Indexed',
-        nonIndexed: 'Non-indexed',
+        'non-indexed': 'Non-indexed',
       },
     },
     policies: {
       title: 'Editorial and Publishing Policies',
-      intro: 'HH Publisher is committed to advancing scholarly communication by providing a trusted, ethical, transparent, and accessible platform for the dissemination of high-quality academic and scientific research.',
+      corePrinciples: 'Core Ethics Principles',
     },
     contact: {
       title: 'Contact Us',
       addressLabel: 'Address',
       emailLabel: 'Email',
       phoneLabel: 'Phone',
+      formTitle: 'Quick Inquiry',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      emailPlaceholder: 'Email Address',
+      message: 'Your Message',
+      submit: 'Send Message',
     },
     editorial: {
       title: 'Editorial Board',
@@ -81,36 +81,34 @@ export const content = {
       policies: 'Polisi',
       contact: 'Hubungi Kami',
     },
-    hero: {
-      title: 'HH Publisher',
-      subtitle: 'Memartabatkan Integriti Ilmu & Penyelidikan',
-      description: 'Syarikat penerbitan jurnal antarabangsa yang ditubuhkan pada 2017. Kami menjemput semua sarjana dari pelbagai latar belakang di seluruh dunia untuk bekerjasama dengan kami tanpa prejudis.',
-      cta: 'Teroka Jurnal',
-    },
     about: {
       title: 'Tentang Kami',
-      intro: 'HH Publisher adalah jenama di bawah HH Academic; berdaftar di bawah Suruhanjaya Syarikat Malaysia pada 2017. HH Publisher komited untuk menyokong kemajuan dan penyebaran penyelidikan ilmiah berkualiti tinggi merentasi pelbagai disiplin akademik.',
-      mission: 'Misi kami adalah untuk menyediakan platform yang boleh dipercayai bagi penyelidik, ahli akademik, dan profesional untuk berkongsi penyelidikan asli, idea inovatif, dan pengetahuan yang menyumbang kepada pembangunan saintifik dan masyarakat.',
       teamTitle: 'Pasukan Kami',
-      teamDesc: 'Semua ahli HH Publisher yang dipilih mempunyai pengalaman luas dalam penerbitan saintifik, dengan pengalaman bertahun-tahun dalam bidang tersebut.',
+      missionTitle: 'Misi Kami',
     },
     journals: {
       title: 'Jurnal Kami',
       categories: {
         scopus: 'Indeks Scopus',
         myjournal: 'Indeks MyJournal',
-        nonIndexed: 'Tidak Berindeks',
+        'non-indexed': 'Tidak Berindeks',
       },
     },
     policies: {
       title: 'Polisi Editorial dan Penerbitan',
-      intro: 'HH Publisher komited untuk memajukan komunikasi ilmiah dengan menyediakan platform yang dipercayai, beretika, telus, dan mudah diakses untuk penyebaran penyelidikan akademik dan saintifik berkualiti tinggi.',
+      corePrinciples: 'Prinsip Etika Teras',
     },
     contact: {
       title: 'Hubungi Kami',
       addressLabel: 'Alamat',
       emailLabel: 'E-mel',
       phoneLabel: 'Telefon',
+      formTitle: 'Pertanyaan Pantas',
+      firstName: 'Nama Depan',
+      lastName: 'Nama Belakang',
+      emailPlaceholder: 'Alamat E-mel',
+      message: 'Mesej Anda',
+      submit: 'Hantar Mesej',
     },
     editorial: {
       title: 'Lembaga Editorial',
@@ -118,72 +116,3 @@ export const content = {
     },
   },
 };
-
-export const journals: Journal[] = [
-  {
-    id: 'pmmb',
-    title: 'Progress in Microbes & Molecular Biology',
-    status: 'scopus',
-    image: '/src/assets/images/journal_microbes_biology_1790832100281.jpg',
-    link: '#',
-  },
-  {
-    id: 'mjae',
-    title: 'Malaysian Journal of Agricultural Economics',
-    status: 'scopus',
-    image: '/src/assets/images/journal_agricultural_economics_1790832116491.jpg',
-    link: '#',
-  },
-  {
-    id: 'pddbs',
-    title: 'Progress in Drug Discovery & Biomedical Science',
-    status: 'myjournal',
-    image: '/src/assets/images/journal_drug_discovery_1790832125088.jpg',
-    link: '#',
-  },
-  {
-    id: 'jwer',
-    title: 'Journal of Workforce Education & Research',
-    status: 'non-indexed',
-    image: '/src/assets/images/journal_workforce_education_1790832141266.jpg',
-    link: '#',
-  },
-];
-
-export const team: TeamMember[] = [
-  { name: 'Nor Hidayah Mustafa', role: 'Manager' },
-  { name: 'Siti Nurbainun Parjo', role: 'Journal Manager', department: 'Operational Department', reportsTo: 'Nor Hidayah Mustafa' },
-  { name: 'Ruzira Suboh', role: 'Assistant Editor', department: 'Operational Department', reportsTo: 'Siti Nurbainun Parjo' },
-  { name: 'Haritharan Weloosamy', role: 'IT Executive', department: 'Operational Department', reportsTo: 'Nor Hidayah Mustafa' },
-];
-
-export const editorialBoard: EditorialMember[] = [
-  {
-    name: 'Prof. Dr. Ahmed Al-Farsi',
-    role: 'Editor-in-Chief',
-    institution: 'University of Science & Technology',
-    focus: ['Molecular Microbiology', 'Genetic Engineering'],
-    image: 'https://images.unsplash.com/photo-1559839734-2b71f1536783?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    name: 'Dr. Sarah Chen',
-    role: 'Associate Editor',
-    institution: 'Global Institute of Agriculture',
-    focus: ['Sustainable Farming', 'Agricultural Economics'],
-    image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    name: 'Prof. Dr. James O’Connell',
-    role: 'Managing Editor',
-    institution: 'Oxford Biomedical Research Centre',
-    focus: ['Drug Discovery', 'Biopharmaceutics'],
-    image: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-  {
-    name: 'Dr. Maria Rodriguez',
-    role: 'Review Editor',
-    institution: 'National University of Biotechnology',
-    focus: ['Genomics', 'Bioinformatics'],
-    image: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80&w=300&h=300',
-  },
-];
