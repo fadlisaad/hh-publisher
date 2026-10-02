@@ -1,0 +1,10 @@
+node_modules
+dist
+build
+.astro
+.wrangler
+bun.lock
+.git
+.gitignore
+*.log
+.DS_Store

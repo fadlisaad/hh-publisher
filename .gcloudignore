@@ -1,11 +1,11 @@
+.gcloudignore
+.git
+.gitignore
 node_modules/
-build/
 dist/
-coverage/
+build/
 .astro/
 .wrangler/
 bun.lock
-.DS_Store
 *.log
-.env*
-!.env.example
+.DS_Store

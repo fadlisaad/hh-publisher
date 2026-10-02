@@ -1,9 +1,5 @@
-import cloudflare from '@astrojs/cloudflare';
-import react from '@astrojs/react';
 import { defineConfig } from 'astro/config';
-import emdash, { local } from 'emdash/astro';
-import { playgroundDatabase } from '@emdash-cms/cloudflare';
-
+import react from '@astrojs/react';
 import tailwind from '@tailwindcss/vite';
 
 // https://astro.build/config
@@ -15,19 +11,8 @@ export default defineConfig({
     port: 3000,
     host: true,
   },
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-  }),
   integrations: [
     react(),
-    /*
-    emdash({
-      db: playgroundDatabase(),
-      storage: local(),
-    }),
-    */
   ],
   i18n: {
     defaultLocale: 'en',
@@ -36,5 +21,4 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
-  output: 'server',
 });
