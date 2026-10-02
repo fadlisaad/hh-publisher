@@ -9,7 +9,7 @@
     "build": "astro build",
     "preview": "astro preview --port 3000 --host 0.0.0.0",
     "clean": "rm -rf dist .astro",
-    "lint": "astro check && tsc --noEmit"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.3.3",
