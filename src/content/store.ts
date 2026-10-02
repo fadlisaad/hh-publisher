@@ -23,11 +23,11 @@ export interface TeamMember {
 
 export interface EditorialMember {
   name: string;
-  role: string;
-  institution: string;
-  focus: { area: string }[];
+  role?: string;
+  institution?: string;
+  focus?: { area: string }[];
   photo?: unknown;
-  sort_order: number;
+  sort_order?: number;
 }
 
 export const content = {

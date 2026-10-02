@@ -12,26 +12,26 @@ interface Props {
 }
 
 interface HomepageContent {
-  hero_eyebrow: string;
+  hero_eyebrow?: string;
   hero_title: string;
-  hero_description: string;
-  hero_cta: string;
+  hero_description?: string;
+  hero_cta?: string;
   hero_image?: ImageValue;
-  hero_quote: string;
-  why_title: string;
-  why_intro: string;
-  features: { title: string; description: string }[];
-  journals_intro: string;
-  about_intro: string;
-  about_mission: string;
-  mission_quote: string;
-  policies_intro: string;
-  core_principles: { label: string }[];
-  contact_intro: string;
-  phone: string;
-  email: string;
-  address: string;
-  footer_tagline: string;
+  hero_quote?: string;
+  why_title?: string;
+  why_intro?: string;
+  features?: { title: string; description?: string }[];
+  journals_intro?: string;
+  about_intro?: string;
+  about_mission?: string;
+  mission_quote?: string;
+  policies_intro?: string;
+  core_principles?: { label: string }[];
+  contact_intro?: string;
+  phone?: string;
+  email?: string;
+  address?: string;
+  footer_tagline?: string;
 }
 
 interface Policy {
@@ -53,7 +53,28 @@ if (!homepageResult.entry) {
 }
 if (Astro.cache?.enabled) Astro.cache.set(homepageResult.cacheHint);
 
-const home = homepageResult.entry.data as HomepageContent;
+const homepage = homepageResult.entry.data as HomepageContent;
+const home = {
+  ...homepage,
+  hero_eyebrow: homepage.hero_eyebrow ?? '',
+  hero_description: homepage.hero_description ?? '',
+  hero_cta: homepage.hero_cta ?? '',
+  hero_quote: homepage.hero_quote ?? '',
+  why_title: homepage.why_title ?? '',
+  why_intro: homepage.why_intro ?? '',
+  features: homepage.features ?? [],
+  journals_intro: homepage.journals_intro ?? '',
+  about_intro: homepage.about_intro ?? '',
+  about_mission: homepage.about_mission ?? '',
+  mission_quote: homepage.mission_quote ?? '',
+  policies_intro: homepage.policies_intro ?? '',
+  core_principles: homepage.core_principles ?? [],
+  contact_intro: homepage.contact_intro ?? '',
+  phone: homepage.phone ?? '',
+  email: homepage.email ?? '',
+  address: homepage.address ?? '',
+  footer_tagline: homepage.footer_tagline ?? '',
+};
 const [journalResult, teamResult, policyResult] = await Promise.all([
   getLocalizedCollection('journals', lang),
   getLocalizedCollection('team', lang),
@@ -72,7 +93,8 @@ const journals = journalResult.entries as Array<{ data: Journal }>;
 const team = teamResult.entries as Array<{ data: TeamMember }>;
 const policies = policyResult.entries as Array<{ data: Policy }>;
 const whyTitleSuffix = ' HH Publisher';
-const hasWhyTitleBrand = home.why_title.endsWith(whyTitleSuffix);
+const hasWhyTitleBrand =
+  home.why_title.length > 0 && home.why_title.endsWith(whyTitleSuffix);
 const whyTitleLead = hasWhyTitleBrand
   ? home.why_title.slice(0, -whyTitleSuffix.length)
   : home.why_title;
@@ -312,15 +334,17 @@ const whyTitleLead = hasWhyTitleBrand
                 <p class="text-xl">{home.email}</p>
               </div>
             </div>
-            <div class="flex gap-6">
-              <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            {home.address && (
+              <div class="flex gap-6">
+                <div class="w-12 h-12 rounded-full border border-stone-700 flex items-center justify-center shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-400"><path d="M20 10c0 6-8 12-8s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.addressLabel}</p>
+                  <p class="text-stone-300 leading-relaxed">{home.address.split('\n').map((line, index) => <span>{index > 0 && <br />}{line}</span>)}</p>
+                </div>
               </div>
-              <div>
-                <p class="text-xs uppercase tracking-widest text-stone-500 font-bold mb-1">{t.contact.addressLabel}</p>
-                <p class="text-stone-300 leading-relaxed">{home.address.split('\n').map((line, index) => <span>{index > 0 && <br />}{line}</span>)}</p>
-              </div>
-            </div>
+            )}
           </div>
         </div>
         
