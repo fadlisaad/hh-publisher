@@ -8,6 +8,13 @@
     {
       "binding": "DB",
       "database_name": "hh-publisher",
+      "database_id": "d3c375ad-505b-4381-9894-eeff2ec0d052",
+    },
+  ],
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "748b7abfe82d492b9844a0544e8ef582",
     },
   ],
   "r2_buckets": [
