@@ -23,6 +23,27 @@
       "bucket_name": "hh-publisher-media",
     },
   ],
+  "previews": {
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "hh-publisher-preview",
+        "database_id": "4af18851-5e92-4db8-a9f0-e97abc1007a1",
+      },
+    ],
+    "r2_buckets": [
+      {
+        "binding": "MEDIA",
+        "bucket_name": "hh-publisher-media-preview",
+      },
+    ],
+    "kv_namespaces": [
+      {
+        "binding": "SESSION",
+        "id": "f7fd7a065fdb42f1aa6753043a5f75f3",
+      },
+    ],
+  },
   "triggers": {
     "crons": ["* * * * *"],
   },
